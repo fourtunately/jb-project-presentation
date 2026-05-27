@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JB 지역혁신 프로젝트 4조 - 고양시 관광 홍보</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+/* ── 기본 PPT 구조 ── */
+*{box-sizing:border-box;}
+body{margin:0;padding:0;background:#000;overflow:hidden;font-family:'Nanum Gothic',sans-serif;}
+
+.slide{
+  width:100vw;height:100vh;
+  background-color:#f7f3ed;
+  display:none;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:50px 100px;
+  position:relative;
+  box-sizing:border-box;
+  overflow-y:auto;
+}
+.slide.active{display:flex;}
+.slide::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:100%;height:10px;
+  background:linear-gradient(90deg,#0d3b2e,#2e8b57,#f4a435);
+}
+
+/* ── 타이틀 ── */
+.slide-title{
+  font-family:'Black Han Sans',sans-serif;font-size:52px;
+  color:#0d3b2e;margin:0 0 30px 0;width:100%;
+  border-left:12px solid #0d3b2e;padding-left:25px;text-align:left;
+}
+h1{font-family:'Black Han Sans',sans-serif;font-size:80px;color:#0d3b2e;margin:0;}
+p{font-size:24px;color:#4a3f2f;margin:10px 0 0 0;}
+
+.content-area{width:100%;display:flex;flex-direction:column;justify-content:center;flex-grow:1;}
+
+/* ── 하단 가이드 ── */
+.nav-guide{position:absolute;bottom:28px;right:50px;color:#888;font-size:16px;}
+
+/* ── 결과 박스 공통 ── */
+.result-box{
+  margin-top:24px;padding:24px 28px;
+  background:#edf7f2;border-radius:20px;
+  border:2px dashed #2e8b57;display:none;width:100%;
+}
+
+/* ══════════════════════════════
+   2주차: 코스 추천
+══════════════════════════════ */
+.btn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;}
+.interactive-btn{
+  background:#fffdf9;border:2px solid #e0d8cc;border-radius:20px;
+  padding:28px 20px;font-size:22px;font-weight:bold;color:#0d3b2e;
+  cursor:pointer;transition:transform .2s,border-color .2s;
+  text-align:center;box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+.interactive-btn:hover{border-color:#2e8b57;transform:translateY(-5px);}
+.interactive-btn.active{background:#2e8b57;color:#fff;border-color:#2e8b57;}
+
+/* 코스 앱 내장 */
+:root{
+  --g1:#0D3B2E;--g2:#1A6045;--g3:#2E8B57;
+  --accent:#F4A435;--accent2:#E8734A;
+  --bg:#F7F3ED;--card:#FFFDF9;
+  --text:#1A1208;--text-m:#4A3F2F;--text-light:#8A7B68;--border:#E0D8CC;
+}
+.ca-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 4px 20px rgba(13,59,46,.08);overflow:hidden;margin-top:18px;}
+.ca-stepbar{display:flex;justify-content:center;gap:0;padding:12px 20px 0;border-bottom:1px solid var(--border);}
+.csb-item{display:flex;flex-direction:column;align-items:center;position:relative;min-width:80px;}
+.csb-item:not(:last-child)::after{content:'';position:absolute;top:12px;left:calc(50% + 12px);width:36px;height:2px;background:rgba(46,139,87,.2);}
+.csb-num{width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.08);border:2px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#888;margin-bottom:5px;}
+.csb-num.on{background:var(--g2);border-color:var(--g2);color:#fff;}
+.csb-lbl{font-size:.65rem;color:var(--text-light);}
+.ca-inner{padding:20px 22px 18px;}
+.ca-step{display:none;}
+.ca-step.on{display:block;animation:fu .4s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ca-tag{display:inline-block;font-family:'Black Han Sans',sans-serif;font-size:.68rem;letter-spacing:2px;color:var(--g2);background:rgba(46,139,87,.1);border-radius:20px;padding:3px 11px;margin-bottom:9px;}
+.ca-h2{font-family:'Black Han Sans',sans-serif;font-size:1.2rem;color:var(--g1);margin-bottom:5px;}
+.ca-p{font-size:.83rem;color:var(--text-m);line-height:1.7;}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px;}
+.comp-btn{background:var(--bg);border:2px solid var(--border);border-radius:13px;padding:14px 8px;cursor:pointer;text-align:center;transition:all .2s;}
+.comp-btn:hover,.comp-btn.sel{border-color:var(--g3);background:rgba(46,139,87,.08);}
+.comp-btn .ci{font-size:1.7rem;display:block;margin-bottom:5px;}
+.comp-btn .cl{font-family:'Black Han Sans',sans-serif;font-size:.82rem;color:var(--g1);}
+.mood-list{display:flex;flex-direction:column;gap:9px;margin-top:13px;}
+.mood-btn{display:flex;align-items:center;gap:11px;background:var(--bg);border:2px solid var(--border);border-radius:11px;padding:11px 14px;cursor:pointer;text-align:left;transition:all .2s;}
+.mood-btn:hover,.mood-btn.sel{border-color:var(--accent);background:rgba(244,164,53,.06);}
+.mood-btn .mi{font-size:1.4rem;}
+.mood-btn .mn{font-family:'Black Han Sans',sans-serif;font-size:.87rem;color:var(--g1);}
+.mood-btn .md{font-size:.72rem;color:var(--text-light);}
+.btn-go{width:100%;background:linear-gradient(135deg,var(--g2),var(--g1));color:#fff;font-family:'Black Han Sans',sans-serif;font-size:.98rem;border:none;padding:14px;border-radius:11px;cursor:pointer;margin-top:13px;transition:all .2s;}
+.btn-go:hover{transform:translateY(-2px);box-shadow:0 7px 22px rgba(13,59,46,.3);}
+.btn-go:disabled{background:#ccc;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-bk{background:transparent;border:2px solid var(--border);color:var(--text-m);font-size:.82rem;font-weight:700;padding:9px;border-radius:10px;cursor:pointer;width:100%;margin-top:7px;transition:all .2s;}
+.btn-bk:hover{border-color:var(--g3);color:var(--g2);}
+.ca-rhead{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-radius:15px;padding:16px 18px;margin-bottom:13px;}
+.ca-rt{font-family:'Black Han Sans',sans-serif;font-size:.72rem;letter-spacing:2px;opacity:.65;margin-bottom:3px;}
+.ca-rn{font-family:'Black Han Sans',sans-serif;font-size:1.3rem;margin-bottom:4px;}
+.ca-rn span{color:var(--accent);}
+.ca-rs{font-size:.78rem;opacity:.83;line-height:1.6;}
+.ca-tl{position:relative;}
+.ca-tl::before{content:'';position:absolute;left:17px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--g3),var(--accent));}
+.ca-tli{display:flex;gap:13px;margin-bottom:14px;position:relative;}
+.ca-dot{width:34px;height:34px;border-radius:50%;background:var(--g2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;position:relative;z-index:1;box-shadow:0 3px 10px rgba(13,59,46,.25);}
+.ca-tb{flex:1;background:var(--bg);border-radius:11px;padding:11px 13px;border:1px solid var(--border);margin-top:2px;}
+.ca-tb h4{font-family:'Black Han Sans',sans-serif;font-size:.88rem;color:var(--g1);margin-bottom:3px;}
+.ca-tb p{font-size:.76rem;color:var(--text-m);line-height:1.6;margin:0;}
+.ca-tg{display:inline-block;font-size:.66rem;background:rgba(46,139,87,.1);color:var(--g2);border-radius:10px;padding:2px 8px;margin-top:4px;font-weight:700;}
+.ca-tip{background:rgba(244,164,53,.1);border:1.5px solid rgba(244,164,53,.3);border-radius:11px;padding:13px;margin-top:12px;display:flex;gap:9px;align-items:flex-start;}
+.ca-tip p{font-size:.78rem;color:var(--text-m);line-height:1.7;margin:0;}
+.ca-tip strong{color:var(--accent2);}
+.vote-section{margin-top:14px;}
+.vote-section h3{font-family:'Black Han Sans',sans-serif;font-size:.95rem;color:var(--g1);margin-bottom:10px;}
+.vote-btns{display:flex;gap:8px;}
+.vbtn{flex:1;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:all .2s;}
+.vbtn:hover{border-color:var(--g3);background:rgba(46,139,87,.06);}
+.vbtn.voted{border-color:var(--g3);background:rgba(46,139,87,.1);}
+.vbtn .ve{font-size:1.4rem;display:block;margin-bottom:3px;}
+.vbtn .vl{font-size:.7rem;color:var(--text-m);}
+.vr{display:none;margin-top:11px;}
+.vr.show{display:block;animation:fu .3s ease;}
+.vbi{margin-bottom:8px;}
+.vbir{display:flex;justify-content:space-between;font-size:.76rem;color:var(--text-m);margin-bottom:3px;font-weight:700;}
+.vbt{height:8px;background:var(--border);border-radius:10px;overflow:hidden;}
+.vbf{height:100%;background:linear-gradient(90deg,var(--g3),var(--g2));border-radius:10px;transition:width 1s cubic-bezier(.34,1.56,.64,1);width:0;}
+
+/* ══════════════════════════════
+   3주차: 룰렛
+══════════════════════════════ */
+.roulette-container{display:flex;align-items:center;justify-content:space-around;width:100%;gap:50px;}
+.wheel-wrapper{position:relative;width:300px;height:300px;flex-shrink:0;}
+.wheel{
+  width:100%;height:100%;border-radius:50%;
+  border:10px solid #0d3b2e;
+  background:conic-gradient(
+    #ff9999 0deg 60deg,#ffcc99 60deg 120deg,#ffff99 120deg 180deg,
+    #ccff99 180deg 240deg,#99ccff 240deg 300deg,#cc99ff 300deg 360deg
+  );
+  transition:transform 3s cubic-bezier(.1,.8,.1,1);
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+.pointer{
+  position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+  width:0;height:0;
+  border-left:20px solid transparent;border-right:20px solid transparent;
+  border-top:35px solid #f43f5e;z-index:10;
+}
+.spin-btn{
+  background:#0d3b2e;color:#fff;border:none;
+  padding:18px 48px;font-size:22px;font-weight:bold;
+  border-radius:50px;cursor:pointer;
+  box-shadow:0 5px 15px rgba(13,59,46,.3);
+  transition:background .2s;
+}
+.spin-btn:hover{background:#2e8b57;}
+.wheel-labels{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;max-width:300px;}
+.wl{background:rgba(46,139,87,.1);border:1px solid rgba(46,139,87,.2);border-radius:20px;padding:4px 12px;font-size:.78rem;color:#0d3b2e;font-weight:700;}
+.r-result-box{
+  padding:20px 24px;background:#edf7f2;border-radius:18px;
+  border:2px dashed #2e8b57;display:none;text-align:center;width:100%;
+}
+
+/* ══════════════════════════════
+   4주차: 밸런스 게임
+══════════════════════════════ */
+/* 시작화면 */
+.bg-screen{display:none;width:100%;}
+.bg-screen.on{display:block;animation:fu .4s ease;}
+.city-badge{display:inline-block;background:#2E8B57;color:#fff;font-family:'Black Han Sans',sans-serif;font-size:.76rem;letter-spacing:.18em;padding:5px 16px;border-radius:100px;margin-bottom:16px;box-shadow:0 3px 10px rgba(46,139,87,.4);}
+.bg-title{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);color:#2C2C2C;line-height:1.2;margin-bottom:6px;}
+.bg-title span{color:#2E8B57;}
+.bg-sub{font-size:.95rem;color:#555;margin-bottom:20px;}
+.bg-card{background:#FFFDF8;border-radius:22px;padding:22px 20px;box-shadow:0 8px 28px rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.9);margin-bottom:18px;}
+.ej-row{font-size:2rem;display:flex;justify-content:center;gap:12px;margin-bottom:12px;}
+.ej-row span{animation:bounce 2s ease-in-out infinite;}
+.ej-row span:nth-child(2){animation-delay:.25s;}
+.ej-row span:nth-child(3){animation-delay:.5s;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bg-desc{font-size:.88rem;color:#555;line-height:1.75;margin-bottom:18px;text-align:center;}
+.info-chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+.chip2{background:#F7F3ED;border:1.5px solid rgba(124,174,122,.3);border-radius:100px;padding:4px 13px;font-size:.76rem;color:#5a8f58;font-weight:700;}
+.btn-start2{width:100%;background:linear-gradient(135deg,#7CAE7A,#5a8f58);color:#fff;border:none;border-radius:16px;padding:16px;font-family:'Black Han Sans',sans-serif;font-size:1.1rem;letter-spacing:.05em;cursor:pointer;box-shadow:0 6px 20px rgba(90,143,88,.4);transition:all .15s;}
+.btn-start2:active{transform:scale(.97);}
+
+/* 질문화면 */
+.prog-wrap{display:flex;align-items:center;gap:9px;margin-bottom:16px;}
+.prog-track{flex:1;height:6px;background:rgba(124,174,122,.2);border-radius:100px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#7CAE7A,#a8cda6);border-radius:100px;transition:width .5s cubic-bezier(.22,1,.36,1);}
+.prog-txt{font-size:.76rem;color:#555;font-weight:700;white-space:nowrap;}
+.q-card{background:#FFFDF8;border-radius:24px;padding:22px 18px 20px;box-shadow:0 10px 36px rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.95);position:relative;overflow:hidden;}
+.q-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#7CAE7A,#E8734A);}
+.qnum{font-size:.7rem;color:#7CAE7A;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px;text-align:center;}
+.qtitle{font-family:'Black Han Sans',sans-serif;font-size:clamp(1rem,3vw,1.35rem);color:#2C2C2C;text-align:center;margin-bottom:18px;line-height:1.35;}
+.vs-div{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;}
+.vs-line2{flex:1;height:1px;background:rgba(0,0,0,.08);}
+.vs-badge2{background:linear-gradient(135deg,#7CAE7A,#5a8f58);color:#fff;font-family:'Black Han Sans',sans-serif;font-size:.82rem;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(90,143,88,.4);}
+.choices2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.choice2{background:#F7F3ED;border:2.5px solid rgba(124,174,122,.2);border-radius:18px;padding:16px 12px;cursor:pointer;text-align:center;transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:110px;}
+.choice2:hover{border-color:#7CAE7A;background:#fff;transform:translateY(-3px) scale(1.02);box-shadow:0 8px 22px rgba(124,174,122,.25);}
+.choice2.selected{border-color:#7CAE7A;background:rgba(124,174,122,.1);transform:scale(.97);}
+.choice2 .ce{font-size:1.8rem;line-height:1;}
+.choice2 .cn{font-weight:800;font-size:clamp(.78rem,2.5vw,.9rem);color:#2C2C2C;line-height:1.3;word-break:keep-all;}
+.choice2 .cd{font-size:.7rem;color:#555;line-height:1.4;word-break:keep-all;}
+.timer-wrap2{margin-top:14px;display:flex;align-items:center;gap:7px;}
+.ti-track{flex:1;height:6px;background:rgba(124,174,122,.15);border-radius:100px;overflow:hidden;}
+.ti-fill{height:100%;background:linear-gradient(90deg,#7CAE7A,#E8734A);border-radius:100px;width:100%;}
+.ti-sec{font-size:.78rem;font-weight:800;color:#5a8f58;min-width:20px;text-align:right;}
+
+/* 결과화면 */
+.result-head2{background:linear-gradient(135deg,#5a8f58,#7CAE7A);color:#fff;border-radius:18px;padding:20px;margin-bottom:14px;text-align:center;}
+.re-big{font-size:2.8rem;margin-bottom:7px;}
+.re-lbl{font-size:.72rem;opacity:.75;letter-spacing:1px;margin-bottom:3px;}
+.re-type{font-family:'Black Han Sans',sans-serif;font-size:1.2rem;margin-bottom:5px;}
+.re-type .hl{color:#fff176;}
+.re-desc{font-size:.8rem;opacity:.88;line-height:1.7;white-space:pre-line;}
+.rdet{background:#FFFDF8;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 4px 14px rgba(0,0,0,.07);}
+.rdet-title{font-size:.72rem;color:#555;letter-spacing:1px;font-weight:700;text-transform:uppercase;margin-bottom:10px;}
+.det-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.det-row:last-child{margin-bottom:0;}
+.det-icon{font-size:1.1rem;flex-shrink:0;width:26px;text-align:center;}
+.det-lbl{font-size:.7rem;color:#555;font-weight:700;margin-bottom:2px;}
+.det-txt{font-size:.8rem;color:#2C2C2C;line-height:1.5;}
+.ans-log{background:#FFFDF8;border-radius:14px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.07);margin-bottom:12px;}
+.log-title2{font-size:.72rem;color:#555;letter-spacing:1px;font-weight:700;text-transform:uppercase;margin-bottom:9px;}
+.log-item2{display:flex;gap:9px;align-items:center;font-size:.82rem;padding:5px 0;border-bottom:1px dashed rgba(0,0,0,.07);}
+.log-item2:last-child{border-bottom:none;}
+.log-q2{color:#5a8f58;font-weight:700;min-width:24px;}
+.log-a2{color:#2C2C2C;}
+.btn-retry2{width:100%;background:transparent;border:2px solid #7CAE7A;color:#5a8f58;font-family:'Black Han Sans',sans-serif;font-size:1rem;padding:13px;border-radius:12px;cursor:pointer;transition:all .2s;}
+.btn-retry2:hover{background:rgba(124,174,122,.1);}
+
+/* ── 5번 슬라이드: 배운점 ── */
+.insight-box{background:#fff;border:2px solid #e0d8cc;border-left:10px solid #0d3b2e;border-radius:16px;padding:28px;margin-bottom:18px;box-shadow:0 4px 15px rgba(0,0,0,.02);}
+.insight-box.secondary{border-left-color:#f4a435;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     SLIDE 1 — 표지
+══════════════════════════════ -->
+<div class="slide active" id="slide-1">
+  <p style="font-size:32px;color:#2e8b57;font-weight:800;letter-spacing:6px;margin-bottom:20px;">JB 지역혁신 프로젝트 4조</p>
+  <h1>고양시 관광 홍보 성과발표</h1>
+  <p style="font-size:28px;color:#64748b;">체험형 로드맵 콘텐츠 통합 시연 페이지</p>
+  <div class="nav-guide">키보드 방향키 [ ▶ ] 를 누르면 슬라이드가 넘어갑니다.</div>
+</div>
+
+<!-- ══════════════════════════════
+     SLIDE 2 — 1주차: 설문조사
+══════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <div class="slide-title">01. 1주차 - 기초 데이터조사 및 한계점</div>
+  <div class="content-area">
+    <p style="font-size:30px;line-height:2;color:#1a1208;margin:0;">
+      • 중부대학교 학생 대상 고양시 인지도 설문지 분석 완료<br/>
+      • 대다수의 학생이 일산호수공원 외 <strong>숨은 명소에 대한 정보 부족</strong> 현상 식별<br/>
+      <span style="color:#be123c;font-weight:bold;display:block;margin-top:20px;">➔ 단순 텍스트 배포 홍보의 한계 극복을 위해 2~4주차 빌드업 진행</span>
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SLIDE 3 — 2주차: 코스 추천 앱
+══════════════════════════════ -->
+<div class="slide" id="slide-3" style="justify-content:flex-start;padding-top:40px;">
+  <div class="slide-title" style="font-size:42px;margin-bottom:16px;">02. 2주차 - 맞춤형 코스 매칭 시스템</div>
+  <div class="content-area" style="overflow-y:auto;">
+
+    <div class="ca-wrap">
+      <!-- 스텝바 -->
+      <div class="ca-stepbar">
+        <div class="csb-item"><div class="csb-num on" id="csn1">1</div><div class="csb-lbl">동행 선택</div></div>
+        <div class="csb-item"><div class="csb-num" id="csn2">2</div><div class="csb-lbl">분위기 선택</div></div>
+        <div class="csb-item"><div class="csb-num" id="csn3">✓</div><div class="csb-lbl">코스 추천</div></div>
+      </div>
+      <div class="ca-inner">
+
+        <!-- Step 1 -->
+        <div class="ca-step on" id="cs1">
+          <span class="ca-tag">STEP 01</span>
+          <div class="ca-h2">누구랑 고양시 가고 싶어요? 🤔</div>
+          <p class="ca-p">동행 유형을 선택하면 딱 맞는 코스를 추천해 드려요!</p>
+          <div class="comp-grid">
+            <button class="comp-btn" onclick="caComp('alone',this)"><span class="ci">🧘</span><span class="cl">혼자</span></button>
+            <button class="comp-btn" onclick="caComp('friends',this)"><span class="ci">👫</span><span class="cl">친구랑</span></button>
+            <button class="comp-btn" onclick="caComp('couple',this)"><span class="ci">💑</span><span class="cl">연인이랑</span></button>
+          </div>
+          <button class="btn-go" id="cab1" disabled onclick="caNext(2)">다음 단계로 →</button>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="ca-step" id="cs2">
+          <span class="ca-tag">STEP 02</span>
+          <div class="ca-h2">오늘 어떤 느낌으로 갈까요? ✨</div>
+          <p class="ca-p">원하는 분위기를 골라보세요.</p>
+          <div class="mood-list" id="caMoodList"></div>
+          <button class="btn-go" id="cab2" disabled onclick="caShowRes()">내 코스 보러가기 🗺️</button>
+          <button class="btn-bk" onclick="caNext(1)">← 처음으로 돌아가기</button>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="ca-step" id="cs3">
+          <div class="ca-rhead">
+            <div class="ca-rt" id="crt"></div>
+            <div class="ca-rn" id="crn"></div>
+            <div class="ca-rs" id="crs"></div>
+          </div>
+          <span class="ca-tag">추천 코스</span>
+          <div class="ca-h2" style="margin-bottom:12px;">오늘의 동선 🗺️</div>
+          <div class="ca-tl" id="caTl"></div>
+          <div class="ca-tip" id="caTip"></div>
+          <div class="vote-section">
+            <h3>📊 이 코스, 가고 싶으신가요?</h3>
+            <div class="vote-btns">
+              <button class="vbtn" onclick="caVote('yes',this)"><span class="ve">😍</span><span class="vl">꼭 가고 싶다!</span></button>
+              <button class="vbtn" onclick="caVote('maybe',this)"><span class="ve">🤔</span><span class="vl">고려해볼게요</span></button>
+              <button class="vbtn" onclick="caVote('no',this)"><span class="ve">😅</span><span class="vl">모르겠어요</span></button>
+            </div>
+            <div class="vr" id="voteRes">
+              <div style="margin:9px 0 7px;font-size:.78rem;color:var(--text-light);font-weight:700;">참여자 반응 집계</div>
+              <div class="vbi"><div class="vbir"><span>😍 꼭 가고 싶다!</span><span id="vpc-yes">0%</span></div><div class="vbt"><div class="vbf" id="vbar-yes"></div></div></div>
+              <div class="vbi"><div class="vbir"><span>🤔 고려해볼게요</span><span id="vpc-maybe">0%</span></div><div class="vbt"><div class="vbf" id="vbar-maybe"></div></div></div>
+              <div class="vbi"><div class="vbir"><span>😅 모르겠어요</span><span id="vpc-no">0%</span></div><div class="vbt"><div class="vbf" id="vbar-no"></div></div></div>
+            </div>
+          </div>
+          <button class="btn-bk" style="margin-top:12px;" onclick="caRestart()">🔄 다른 코스 추천받기</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SLIDE 4 — 3주차: 룰렛
+══════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <div class="slide-title">03. 3주차 - 게이미피케이션 관광지 룰렛</div>
+  <div class="content-area">
+    <div class="roulette-container">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div class="wheel-wrapper">
+          <div class="pointer"></div>
+          <div id="wheel" class="wheel"></div>
+        </div>
+        <div class="wheel-labels">
+          <span class="wl">🌊 일산 호수공원</span>
+          <span class="wl">⚔️ 행주산성</span>
+          <span class="wl">🛍️ 스타필드 고양</span>
+          <span class="wl">☕ 밤리단길</span>
+          <span class="wl">🏯 서오릉</span>
+          <span class="wl">🎢 원마운트</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:22px;flex-grow:1;">
+        <p style="font-size:28px;font-weight:700;color:#0d3b2e;margin:0;">어디 갈지 고민될 땐? 랜덤 매칭 룰렛!</p>
+        <button class="spin-btn" onclick="spinRoulette()"><i class="fa-solid fa-play"></i> SPIN</button>
+        <div id="rouletteResult" class="r-result-box">
+          <h4 style="margin:0 0 8px 0;font-size:20px;color:#0d3b2e;">🎯 추천 매칭 결과</h4>
+          <p id="rouletteText" style="margin:0;font-weight:bold;font-size:28px;color:#f4a435;font-family:'Black Han Sans';"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SLIDE 5 — 4주차: 밸런스 게임
+══════════════════════════════ -->
+<div class="slide" id="slide-5" style="justify-content:flex-start;padding-top:40px;">
+  <div class="slide-title" style="font-size:42px;margin-bottom:16px;">04. 4주차 - 취향 극대화 밸런스 게임</div>
+  <div class="content-area" style="overflow-y:auto;align-items:center;">
+
+    <!-- 시작 화면 -->
+    <div class="bg-screen on" id="bg-start" style="max-width:540px;">
+      <div style="text-align:center;">
+        <div class="city-badge">🌿 고양시 관광</div>
+        <h2 class="bg-title"><span>밸런스</span> 게임</h2>
+        <p class="bg-sub">둘 중 어디가 더 끌리나요?</p>
+      </div>
+      <div class="bg-card">
+        <div class="ej-row"><span>🌸</span><span>🏞️</span><span>🛍️</span></div>
+        <p class="bg-desc">고양시의 다양한 매력을 탐색해보세요.<br>5가지 질문으로 나만의 여행 스타일을 발견할 수 있어요!</p>
+        <div class="info-chips">
+          <div class="chip2">⏱ 약 1분</div>
+          <div class="chip2">❓ 5문항</div>
+          <div class="chip2">🎯 나만의 유형</div>
+        </div>
+        <button class="btn-start2" onclick="bgStart()">시작하기 →</button>
+      </div>
+    </div>
+
+    <!-- 질문 화면 -->
+    <div class="bg-screen" id="bg-q" style="max-width:540px;">
+      <div class="prog-wrap">
+        <div class="prog-track"><div class="prog-fill" id="bg-pfill"></div></div>
+        <div class="prog-txt" id="bg-ptxt"></div>
+      </div>
+      <div class="q-card">
+        <div class="qnum" id="bg-qnum"></div>
+        <div class="qtitle" id="bg-qtitle"></div>
+        <div class="vs-div"><div class="vs-line2"></div><div class="vs-badge2">VS</div><div class="vs-line2"></div></div>
+        <div class="choices2">
+          <button class="choice2" id="bg-lbtn" onclick="bgChoose('left')">
+            <div class="ce" id="bg-le"></div>
+            <div class="cn" id="bg-ln"></div>
+            <div class="cd" id="bg-ld"></div>
+          </button>
+          <button class="choice2" id="bg-rbtn" onclick="bgChoose('right')">
+            <div class="ce" id="bg-re"></div>
+            <div class="cn" id="bg-rn"></div>
+            <div class="cd" id="bg-rd"></div>
+          </button>
+        </div>
+        <div class="timer-wrap2">
+          <span style="font-size:.82rem;color:#555;">⏳</span>
+          <div class="ti-track"><div class="ti-fill" id="bg-tfill"></div></div>
+          <div class="ti-sec" id="bg-tsec">10</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 결과 화면 -->
+    <div class="bg-screen" id="bg-result" style="max-width:540px;">
+      <div class="result-head2">
+        <div class="re-big" id="bg-remoji"></div>
+        <div class="re-lbl">나의 고양시 여행 스타일</div>
+        <div class="re-type" id="bg-rtype"></div>
+        <div class="re-desc" id="bg-rdesc"></div>
+      </div>
+      <div class="rdet">
+        <div class="rdet-title">✨ 맞춤 추천</div>
+        <div id="bg-rdet"></div>
+      </div>
+      <div class="ans-log">
+        <div class="log-title2">📋 나의 선택 기록</div>
+        <div id="bg-rlog"></div>
+      </div>
+      <button class="btn-retry2" onclick="bgRestart()">🔄 다시 해보기</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SLIDE 6 — 결론
+══════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <div class="slide-title">05. 프로젝트 결론 및 JB 지역혁신 과제의 가치</div>
+  <div class="content-area">
+    <div class="insight-box">
+      <h3 style="font-family:'Black Han Sans';font-size:28px;color:#0d3b2e;margin:0 0 12px 0;">
+        <i class="fa-solid fa-graduation-cap"></i> 참여형 게이미피케이션 콘텐츠의 효용성 체득
+      </h3>
+      <p style="font-size:21px;line-height:1.7;color:#333;margin:0;">
+        단순 정보 전달 목적의 일방향적 텍스트 배포가 가진 한계를 몸소 실감했습니다.
+        사용자가 주도적으로 작동시키는 <strong>게이미피케이션 요소를 결합했을 때 조회수와 체류 시간이 비약적으로 증가</strong>함을
+        검증하며 실전적인 데이터 분석 및 마케팅 설계 능력을 습득했습니다.
+      </p>
+    </div>
+    <div class="insight-box secondary">
+      <h3 style="font-family:'Black Han Sans';font-size:28px;color:#0d3b2e;margin:0 0 12px 0;">
+        <i class="fa-solid fa-handshake-angle"></i> 왜 JB 지역혁신 프로젝트를 해야 하는가? (존재 이유)
+      </h3>
+      <p style="font-size:21px;line-height:1.7;color:#333;margin:0;">
+        대학과 지역 사회는 단절된 개체가 아닌 동반 성장해야 하는 공동체입니다.
+        캠퍼스가 위치한 고양시의 실제 인지도 한계를 분석하고 대안을 제안하는 과정을 거치며,
+        <strong>교과서적 지식을 넘어 밀착형 로컬 문제를 애자일하게 해결하는 진정한 지역 혁신 인재로서의 책임감과 가치</strong>를 깨달았습니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════ 슬라이드 컨트롤러 ══════════ */
+let currentSlide=1;
+const totalSlides=6;
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '){if(currentSlide<totalSlides)goToSlide(currentSlide+1);}
+  else if(e.key==='ArrowLeft'){if(currentSlide>1)goToSlide(currentSlide-1);}
+});
+function goToSlide(n){
+  document.getElementById('slide-'+currentSlide).classList.remove('active');
+  currentSlide=n;
+  document.getElementById('slide-'+currentSlide).classList.add('active');
+}
+
+/* ══════════ 코스 추천 앱 (2주차) ══════════ */
+const CA_MOODS={
+  alone:[{id:'healing',icon:'🌿',label:'힐링·자연',desc:'조용히 걷고 쉬고 싶어요'},{id:'culture',icon:'🏯',label:'역사·문화',desc:'의미 있는 곳을 둘러보고 싶어요'},{id:'food',icon:'🍜',label:'맛집 탐방',desc:'혼자 맛있는 걸 먹고 싶어요'}],
+  friends:[{id:'activity',icon:'🎢',label:'액티비티',desc:'신나게 놀고 싶어요!'},{id:'shopping',icon:'🛍️',label:'쇼핑·카페',desc:'구경하고 카페도 들르고 싶어요'},{id:'photo',icon:'📸',label:'인생샷 투어',desc:'예쁜 사진 많이 찍고 싶어요'}],
+  couple:[{id:'romantic',icon:'🌸',label:'로맨틱 데이트',desc:'설레는 분위기를 원해요'},{id:'active',icon:'⚡',label:'신나는 데이트',desc:'함께 활동적으로 즐기고 싶어요'},{id:'cultural',icon:'🎭',label:'문화·공연',desc:'공연이나 전시를 함께 보고 싶어요'}],
+};
+const CA_COURSES={
+  alone_healing:{type:'혼자 · 힐링 코스',name:'<span>호수공원</span> 힐링 산책',sub:'일산 호수공원의 고요한 수면을 바라보며 나만의 시간을 충전해요.',steps:[{icon:'🌊',name:'일산 호수공원',desc:'달빛광장 → 수변 데크 산책로 → 철새 관찰 포인트',tag:'도보 60~90분'},{icon:'☕',name:'호수변 카페',desc:'수면이 보이는 창가 자리에서 따뜻한 음료 한 잔',tag:'여유롭게 휴식'},{icon:'🌅',name:'노을 감상 포인트',desc:'해질 녘 호수 반영이 장관',tag:'포토존'}],tip:'🚇 <strong>교통:</strong> 3호선 정발산역 도보 5분 | 🎫 <strong>입장:</strong> 무료'},
+  alone_culture:{type:'혼자 · 역사 코스',name:'<span>서오릉</span> 역사 탐방',sub:'유네스코 세계문화유산 서오릉을 천천히 걸으며 역사를 느껴보세요.',steps:[{icon:'🏯',name:'서오릉',desc:'다섯 개의 능 탐방, 오디오 가이드 활용',tag:'약 2시간'},{icon:'🌲',name:'소나무 숲길',desc:'수백 년 된 소나무 숲길을 걸으며 힐링',tag:'산책 추천'},{icon:'🍱',name:'원당 전통시장',desc:'탐방 후 전통시장에서 소박한 한 끼',tag:'맛집'}],tip:'🚌 <strong>교통:</strong> 버스 9710, 88번 | 🎫 <strong>입장료:</strong> 성인 1,000원'},
+  alone_food:{type:'혼자 · 맛집 코스',name:'<span>일산 밤리단길</span> 혼밥 투어',sub:'혼자 먹어도 눈치 없는 개성 있는 가게들을 투어해 보세요.',steps:[{icon:'🍜',name:'일산 밤리단길',desc:'감성 식당부터 이색 카페까지 즐비한 거리',tag:'도보 탐방'},{icon:'🧁',name:'베이커리 카페',desc:'혼자 조용히 책 읽기 좋은 분위기',tag:'여유시간'},{icon:'🏬',name:'라페스타',desc:'가볍게 구경 후 영화 한 편',tag:'마무리'}],tip:'🚇 <strong>교통:</strong> 3호선 백석역 도보 10분 | 💰 1인 식사 1만~2만원대'},
+  friends_activity:{type:'친구들 · 액티비티 코스',name:'<span>원마운트</span> 신나는 하루',sub:'친구들과 원마운트에서 온몸으로 즐기고, 스타필드에서 쇼핑까지!',steps:[{icon:'🎢',name:'원마운트',desc:'계절에 따라 워터파크 or 아이스링크 선택',tag:'반나절'},{icon:'🍔',name:'점심 & 간식',desc:'스타필드 푸드코트에서 든든하게',tag:'맛집'},{icon:'🛍️',name:'스타필드 고양',desc:'국내 최대급 복합몰에서 신나게 쇼핑',tag:'오후 코스'}],tip:'🚇 <strong>교통:</strong> 킨텍스역 도보 10분 | 🎫 입장권 사전 예매 추천'},
+  friends_shopping:{type:'친구들 · 쇼핑 코스',name:'<span>스타필드</span> 쇼핑 풀코스',sub:'스타필드 고양에서 쇼핑하고, 주변 카페 거리에서 인생 카페도 발굴!',steps:[{icon:'🛍️',name:'스타필드 고양',desc:'쇼핑 + 아쿠아필드 스파 + 아이쇼핑',tag:'오전~점심'},{icon:'☕',name:'킨텍스 광장 카페 거리',desc:'개성 넘치는 카페들이 즐비한 거리',tag:'카페 투어'},{icon:'🎡',name:'킨텍스 전시',desc:'진행 중인 박람회 or 전시 관람',tag:'마무리'}],tip:'🚇 <strong>교통:</strong> 킨텍스역 바로 앞 | 💡 주말 혼잡 — 오전 방문 추천'},
+  friends_photo:{type:'친구들 · 인생샷 코스',name:'<span>꽃박람회</span> 감성 사진 투어',sub:'꽃박람회와 호수공원에서 SNS에 바로 올릴 인생샷을 남겨보세요!',steps:[{icon:'🌸',name:'고양 국제 꽃박람회',desc:'테마 정원, 대형 꽃 조형물 포토존',tag:'포토존 맛집'},{icon:'🌊',name:'일산 호수공원',desc:'달빛광장 분수 & 노을 수면 반영 촬영',tag:'감성 사진'},{icon:'🍦',name:'호수변 감성 카페',desc:'카페 내부 소품 활용 인스타 감성 컷',tag:'카페 포토'}],tip:'📸 <strong>골든타임:</strong> 오전 8~10시 또는 오후 5~7시 | 🌸 봄 시즌(4~5월) 추천'},
+  couple_romantic:{type:'연인 · 로맨틱 코스',name:'<span>꽃박람회</span> 설레는 데이트',sub:'꽃향기 가득한 박람회부터 호수 노을까지 영화 속 한 장면 같은 하루.',steps:[{icon:'🌸',name:'고양 국제 꽃박람회',desc:'수만 송이 꽃 사이를 함께 걸으며 사진 한 컷',tag:'로맨틱 포토'},{icon:'🌊',name:'일산 호수공원 노을 산책',desc:'손 잡고 호수변을 걸으며 노을 감상',tag:'저녁 추천'},{icon:'🕯️',name:'분위기 있는 레스토랑',desc:'웨스턴돔 or 라페스타 근처 감성 다이닝',tag:'저녁 식사'}],tip:'💡 <strong>꿀팁:</strong> 꽃박람회는 봄(4~5월)이 절정! 평일 방문 시 한산하고 여유로워요'},
+  couple_active:{type:'연인 · 액티브 데이트',name:'<span>원마운트</span> + <span>행주산성</span> 코스',sub:'오전엔 신나게 놀고, 오후엔 한강 뷰 행주산성에서 역사 산책!',steps:[{icon:'⛸️',name:'원마운트 아이스링크',desc:'둘이서 손잡고 스케이트 타기',tag:'오전'},{icon:'🍱',name:'점심',desc:'스타필드 or 킨텍스 주변 맛집에서 든든하게',tag:'점심'},{icon:'⚔️',name:'행주산성',desc:'한강 조망 전망대에서 함께 바라보는 강 뷰',tag:'오후 산책'}],tip:'⚡ <strong>에너지 넘치는 코스!</strong> 편한 운동화 필수 | 행주산성 입장 무료'},
+  couple_cultural:{type:'연인 · 문화 데이트',name:'<span>아람누리</span> 공연 관람',sub:'고양아람누리에서 공연을 함께 보고, 호수공원 야경으로 마무리.',steps:[{icon:'🎭',name:'고양 아람누리',desc:'뮤지컬·클래식·전시 등 원하는 공연 선택',tag:'공연 관람'},{icon:'🍽️',name:'대화역 근처 레스토랑',desc:'공연 전 또는 후 근사한 식사',tag:'식사'},{icon:'🌙',name:'호수공원 야경',desc:'밤의 호수공원 조명이 아름다운 야경 산책',tag:'마무리'}],tip:'🎫 <strong>예매 필수!</strong> 아람누리 홈페이지에서 사전 예매 시 10~30% 할인 가능'},
+};
+let caC=null,caM=null,caVotes={yes:12,maybe:7,no:3};
+function caComp(t,el){caC=t;document.querySelectorAll('.comp-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');document.getElementById('cab1').disabled=false;caMoods();}
+function caMoods(){const l=document.getElementById('caMoodList');l.innerHTML='';(CA_MOODS[caC]||[]).forEach(m=>{l.innerHTML+=`<button class="mood-btn" onclick="caMood('${m.id}',this)"><span class="mi">${m.icon}</span><div><div class="mn">${m.label}</div><div class="md">${m.desc}</div></div></button>`;});caM=null;document.getElementById('cab2').disabled=true;}
+function caMood(id,el){caM=id;document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');document.getElementById('cab2').disabled=false;}
+function caNext(s){
+  document.querySelectorAll('.ca-step').forEach(e=>e.classList.remove('on'));
+  document.getElementById('cs'+s).classList.add('on');
+  ['csn1','csn2','csn3'].forEach((id,i)=>document.getElementById(id).classList.toggle('on',i<s));
+}
+function caShowRes(){
+  if(!caC||!caM)return;const c=CA_COURSES[caC+'_'+caM];if(!c)return;
+  document.getElementById('crt').textContent=c.type;
+  document.getElementById('crn').innerHTML=c.name;
+  document.getElementById('crs').textContent=c.sub;
+  document.getElementById('caTl').innerHTML=c.steps.map(s=>`<div class="ca-tli"><div class="ca-dot">${s.icon}</div><div class="ca-tb"><h4>${s.name}</h4><p>${s.desc}</p><span class="ca-tg">${s.tag}</span></div></div>`).join('');
+  document.getElementById('caTip').innerHTML=`<p>💡 ${c.tip}</p>`;
+  document.getElementById('voteRes').classList.remove('show');
+  document.querySelectorAll('.vbtn').forEach(b=>b.classList.remove('voted'));
+  caNext(3);
+}
+function caVote(t,el){if(el.classList.contains('voted'))return;document.querySelectorAll('.vbtn').forEach(b=>b.classList.remove('voted'));el.classList.add('voted');caVotes[t]++;const tot=caVotes.yes+caVotes.maybe+caVotes.no;const p={yes:Math.round(caVotes.yes/tot*100),maybe:Math.round(caVotes.maybe/tot*100),no:Math.round(caVotes.no/tot*100)};document.getElementById('vpc-yes').textContent=p.yes+'%';document.getElementById('vpc-maybe').textContent=p.maybe+'%';document.getElementById('vpc-no').textContent=p.no+'%';document.getElementById('voteRes').classList.add('show');setTimeout(()=>{document.getElementById('vbar-yes').style.width=p.yes+'%';document.getElementById('vbar-maybe').style.width=p.maybe+'%';document.getElementById('vbar-no').style.width=p.no+'%';},100);}
+function caRestart(){caC=null;caM=null;document.querySelectorAll('.comp-btn').forEach(b=>b.classList.remove('sel'));document.getElementById('cab1').disabled=true;caNext(1);}
+
+/* ══════════ 룰렛 (3주차) ══════════ */
+let rotationDegree=0;
+const spotList=['일산 호수공원','행주산성','스타필드 고양','밤리단길 카페거리','서오릉','원마운트'];
+function spinRoulette(){
+  const wheel=document.getElementById('wheel');
+  const resBox=document.getElementById('rouletteResult');
+  resBox.style.display='none';
+  const rand=Math.floor(Math.random()*360)+1440;
+  rotationDegree+=rand;
+  wheel.style.transform=`rotate(${rotationDegree}deg)`;
+  setTimeout(()=>{
+    const normDeg=(360-(rotationDegree%360))%360;
+    const idx=Math.floor(normDeg/60);
+    document.getElementById('rouletteText').innerText=spotList[idx];
+    resBox.style.display='block';
+  },3000);
+}
+
+/* ══════════ 밸런스 게임 (4주차) ══════════ */
+const BG_Q=[
+  {title:"어디가 더 가고 싶나요?",left:{emoji:"🌊",name:"일산 호수공원",desc:"야경과 산책 힐링 코스"},right:{emoji:"🛍️",name:"스타필드 고양",desc:"쇼핑과 맛집 탐방 코스"}},
+  {title:"친구와 고양시 간다면?",left:{emoji:"🎢",name:"액티비티 투어",desc:"신나게 즐기는 하루"},right:{emoji:"☕",name:"감성 카페 투어",desc:"수다 떨며 느긋하게"}},
+  {title:"데이트 코스로 어디?",left:{emoji:"🌸",name:"꽃박람회",desc:"감성 넘치는 봄 데이트"},right:{emoji:"🌄",name:"행주산성",desc:"한강 풍경 감상 코스"}},
+  {title:"혼자 떠난다면?",left:{emoji:"📷",name:"성곽길 산책",desc:"혼자 걸으며 사색하기"},right:{emoji:"🎨",name:"아람누리 문화",desc:"전시·공연 관람하기"}},
+  {title:"먹고 싶은 고양 맛집은?",left:{emoji:"🍜",name:"화정동 로컬 맛집",desc:"현지인만 아는 골목식당"},right:{emoji:"🥗",name:"라페스타 레스토랑",desc:"분위기 좋은 다이닝"}},
+];
+const BG_RT={
+  힐링:{emoji:'🌿',type:'감성 힐링형 여행자',desc:'자연 속에서 충전하는 걸 좋아하시는군요!\n고양시의 초록빛 공간들이 당신을 기다립니다.',details:[{icon:'📍',label:'추천 장소',text:'일산 호수공원, 행주산성, 고양 누리길'},{icon:'🕐',label:'추천 시간대',text:'이른 오전 또는 해질 무렵 골든아워'},{icon:'👥',label:'추천 동행',text:'혼자 또는 소중한 1~2명과 함께'}]},
+  액티브:{emoji:'🎉',type:'활기찬 액티브형 여행자',desc:'역동적인 경험을 즐기는 에너지 넘치는 스타일!\n고양시의 다양한 즐길 거리가 기다려요.',details:[{icon:'📍',label:'추천 장소',text:'스타필드 고양, 원마운트, 라페스타'},{icon:'🕐',label:'추천 시간대',text:'주말 낮~저녁, 주중 오후'},{icon:'👥',label:'추천 동행',text:'친구 그룹 또는 가족과 함께'}]},
+  감성:{emoji:'🌸',type:'로맨틱 감성형 여행자',desc:'아름다운 순간을 소중히 여기는 감성파!\n고양시의 계절마다 달라지는 풍경을 즐겨보세요.',details:[{icon:'📍',label:'추천 장소',text:'고양 꽃박람회, 아람누리, 성곽 카페거리'},{icon:'🕐',label:'추천 시간대',text:'봄·가을 오후, 황혼 무렵'},{icon:'👥',label:'추천 동행',text:'연인 또는 감성 코드 맞는 친구'}]},
+  문화:{emoji:'🎨',type:'탐구하는 문화형 여행자',desc:'경험과 지식을 쌓는 걸 즐기는 문화인!\n고양시의 역사와 예술이 풍성하게 펼쳐집니다.',details:[{icon:'📍',label:'추천 장소',text:'아람누리, 행주산성 역사관, 고양 누리길'},{icon:'🕐',label:'추천 시간대',text:'평일 오전~오후, 전시 기간 중'},{icon:'👥',label:'추천 동행',text:'지적 대화가 통하는 친구 또는 나홀로'}]},
+};
+let bgQ=0,bgAns=[],bgTimer=null,bgVotes={};
+function bgScreen(id){document.querySelectorAll('.bg-screen').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');}
+function bgStart(){bgQ=0;bgAns=[];bgScreen('bg-q');bgRenderQ();}
+function bgRenderQ(){
+  const q=BG_Q[bgQ];
+  document.getElementById('bg-pfill').style.width=(bgQ/BG_Q.length*100)+'%';
+  document.getElementById('bg-ptxt').textContent=(bgQ+1)+' / '+BG_Q.length;
+  document.getElementById('bg-qnum').textContent='QUESTION '+(bgQ+1);
+  document.getElementById('bg-qtitle').textContent=q.title;
+  document.getElementById('bg-le').textContent=q.left.emoji;document.getElementById('bg-ln').textContent=q.left.name;document.getElementById('bg-ld').textContent=q.left.desc;
+  document.getElementById('bg-re').textContent=q.right.emoji;document.getElementById('bg-rn').textContent=q.right.name;document.getElementById('bg-rd').textContent=q.right.desc;
+  document.getElementById('bg-lbtn').classList.remove('selected');document.getElementById('bg-rbtn').classList.remove('selected');
+  document.getElementById('bg-lbtn').disabled=false;document.getElementById('bg-rbtn').disabled=false;
+  bgStartTimer();
+}
+function bgStartTimer(){
+  clearInterval(bgTimer);let t=10;
+  const fill=document.getElementById('bg-tfill'),sec=document.getElementById('bg-tsec');
+  fill.style.transition='none';fill.style.width='100%';sec.textContent=t;
+  setTimeout(()=>{fill.style.transition='width 10s linear';fill.style.width='0%';},50);
+  bgTimer=setInterval(()=>{t--;sec.textContent=t;if(t<=0){clearInterval(bgTimer);bgChoose(Math.random()<.5?'left':'right');}},1000);
+}
+function bgChoose(side){
+  if(document.getElementById('bg-lbtn').disabled)return;
+  clearInterval(bgTimer);
+  const q=BG_Q[bgQ],chosen=side==='left'?q.left:q.right;
+  document.getElementById('bg-'+side[0]+'btn').classList.add('selected');
+  document.getElementById('bg-lbtn').disabled=true;document.getElementById('bg-rbtn').disabled=true;
+  bgAns.push({q:q.title,choice:chosen.name,emoji:chosen.emoji,side});
+  bgVotes[chosen.name]=(bgVotes[chosen.name]||0)+1;
+  setTimeout(()=>{bgQ++;bgQ<BG_Q.length?bgRenderQ():bgShowResult();},420);
+}
+function bgAnalyze(){
+  let s={힐링:0,액티브:0,감성:0,문화:0};
+  bgAns.forEach((a,i)=>{
+    if(i===0){a.side==='left'?s.힐링++:s.액티브++;}
+    if(i===1){a.side==='left'?s.액티브++:s.감성++;}
+    if(i===2){a.side==='left'?s.감성++:s.힐링++;}
+    if(i===3){a.side==='left'?s.힐링++:s.문화++;}
+    if(i===4){a.side==='left'?s.감성++:s.액티브++;}
+  });
+  return Object.keys(s).reduce((a,b)=>s[a]>=s[b]?a:b);
+}
+function bgShowResult(){
+  const t=bgAnalyze(),r=BG_RT[t];
+  document.getElementById('bg-remoji').textContent=r.emoji;
+  document.getElementById('bg-rtype').innerHTML='당신은 <span class="hl">'+r.type+'</span>';
+  document.getElementById('bg-rdesc').textContent=r.desc;
+  document.getElementById('bg-rdet').innerHTML=r.details.map(d=>`<div class="det-row"><div class="det-icon">${d.icon}</div><div><div class="det-lbl">${d.label}</div><div class="det-txt">${d.text}</div></div></div>`).join('');
+  document.getElementById('bg-rlog').innerHTML=bgAns.map((a,i)=>`<div class="log-item2"><span class="log-q2">Q${i+1}.</span><span class="log-a2">${a.emoji} ${a.choice}</span></div>`).join('');
+  bgScreen('bg-result');
+}
+function bgRestart(){bgScreen('bg-start');}
+</script>
+</body>
+</html>
