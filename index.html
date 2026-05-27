@@ -42,7 +42,32 @@ p{font-size:24px;color:#4a3f2f;margin:10px 0 0 0;}
 .content-area{width:100%;display:flex;flex-direction:column;justify-content:center;flex-grow:1;}
 
 /* ── 하단 가이드 ── */
-.nav-guide{position:absolute;bottom:28px;right:50px;color:#888;font-size:16px;}
+.nav-guide{position:absolute;bottom:28px;right:220px;color:#888;font-size:16px;}
+
+/* ── 슬라이드 네비 버튼 ── */
+#slide-nav{
+  position:fixed;bottom:22px;right:44px;
+  z-index:9999;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(13,59,46,0.92);
+  backdrop-filter:blur(12px);
+  border-radius:50px;
+  padding:8px 16px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.3);
+}
+.snbtn{
+  background:rgba(255,255,255,0.15);border:none;color:#fff;
+  width:36px;height:36px;border-radius:50%;
+  font-size:1rem;cursor:pointer;
+  transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.snbtn:hover{background:rgba(255,255,255,0.3);}
+.snbtn:disabled{opacity:.25;cursor:not-allowed;}
+#sn-counter{
+  font-size:.75rem;color:rgba(255,255,255,.75);
+  font-weight:700;min-width:36px;text-align:center;
+}
 
 /* ── 결과 박스 공통 ── */
 .result-box{
@@ -480,6 +505,13 @@ p{font-size:24px;color:#4a3f2f;margin:10px 0 0 0;}
   </div>
 </div>
 
+<!-- ── 슬라이드 네비 버튼 ── -->
+<div id="slide-nav">
+  <button class="snbtn" id="sn-prev" onclick="goToSlide(currentSlide-1)" disabled>‹</button>
+  <span id="sn-counter">1 / 6</span>
+  <button class="snbtn" id="sn-next" onclick="goToSlide(currentSlide+1)">›</button>
+</div>
+
 <script>
 /* ══════════ 슬라이드 컨트롤러 ══════════ */
 let currentSlide=1;
@@ -489,9 +521,13 @@ document.addEventListener('keydown',function(e){
   else if(e.key==='ArrowLeft'){if(currentSlide>1)goToSlide(currentSlide-1);}
 });
 function goToSlide(n){
+  if(n<1||n>totalSlides)return;
   document.getElementById('slide-'+currentSlide).classList.remove('active');
   currentSlide=n;
   document.getElementById('slide-'+currentSlide).classList.add('active');
+  document.getElementById('sn-counter').textContent=currentSlide+' / '+totalSlides;
+  document.getElementById('sn-prev').disabled=currentSlide===1;
+  document.getElementById('sn-next').disabled=currentSlide===totalSlides;
 }
 
 /* ══════════ 코스 추천 앱 (2주차) ══════════ */
